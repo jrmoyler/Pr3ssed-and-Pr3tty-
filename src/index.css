@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -28,9 +29,158 @@
   body {
     @apply bg-[var(--color-background)] text-[var(--color-foreground)] font-sans antialiased selection:bg-pink-300 selection:text-white;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif tracking-tight;
+  }
+}
+
+@layer components {
+  .brand-loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .loader-wrapper {
+    animation: floatContainer 6s ease-in-out infinite;
+  }
+
+  .loader {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    perspective: 800px;
+    transform-style: preserve-3d;
+  }
+
+  .bottle-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: spinBottle 4s linear infinite;
+  }
+
+  .orbit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .orbit svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .orbit circle {
+    fill: none;
+    stroke-linecap: round;
+    animation: flowLiquid 2.5s linear infinite;
+  }
+
+  .orbit-1 {
+    animation: orbitSpin1 4.5s linear infinite;
+  }
+
+  .orbit-1 circle {
+    stroke: #111111;
+    stroke-width: 1.8;
+    stroke-dasharray: 180 300;
+  }
+
+  .orbit-2 {
+    animation: orbitSpin2 5.5s linear infinite;
+  }
+
+  .orbit-2 circle {
+    stroke: #111111;
+    stroke-width: 1.2;
+    stroke-dasharray: 120 400;
+    opacity: 0.7;
+    animation-duration: 3s;
+  }
+
+  .orbit-3 {
+    animation: orbitSpin3 6.5s linear infinite;
+  }
+
+  .orbit-3 circle {
+    stroke: #111111;
+    stroke-width: 0.8;
+    stroke-dasharray: 250 350;
+    opacity: 0.4;
+    animation-duration: 4s;
+  }
+
+  .dust-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .sparkle {
+    position: absolute;
+    background: #111111;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  .logo-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInText 2s ease-out forwards;
+    opacity: 0;
+    margin-top: -15px;
+  }
+
+  .brand-name {
+    font-family: 'Alex Brush', cursive;
+    font-size: 44px;
+    margin: 0;
+    line-height: 1.2;
+    padding: 0 15px;
+    text-align: center;
+    background: linear-gradient(to right, #c49a6c 0%, #fde2b5 25%, #b38052 50%, #fde2b5 75%, #c49a6c 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 5s linear infinite;
+  }
+
+  .brand-subtext {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    color: #c49a6c;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: -5px;
+    margin-left: 5px;
+  }
+
+  .brand-subtext::before,
+  .brand-subtext::after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 1px;
+    background-color: #c49a6c;
+    opacity: 0.7;
   }
 }
 
@@ -38,11 +188,89 @@
   .glass-effect {
     @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
   }
+
   .soft-shadow {
     @apply shadow-[0_8px_30px_rgb(0,0,0,0.04)];
   }
+
   /* Updated cards to use primary background and secondary pink */
   .card-premium {
     @apply bg-white border border-pink-100 shadow-sm;
+  }
+}
+
+@keyframes floatContainer {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes spinBottle {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes flowLiquid {
+  to {
+    stroke-dashoffset: -500;
+  }
+}
+
+@keyframes orbitSpin1 {
+  from {
+    transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbitSpin2 {
+  from {
+    transform: rotateX(75deg) rotateY(-25deg) rotateZ(360deg);
+  }
+  to {
+    transform: rotateX(75deg) rotateY(-25deg) rotateZ(0deg);
+  }
+}
+
+@keyframes orbitSpin3 {
+  from {
+    transform: rotateX(50deg) rotateY(35deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(50deg) rotateY(35deg) rotateZ(360deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0) translateZ(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1) translateZ(10px);
+  }
+}
+
+@keyframes fadeInText {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
   }
 }
